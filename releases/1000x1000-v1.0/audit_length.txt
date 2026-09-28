@@ -1,0 +1,18 @@
+families with some instance having T/tau < 20:
+Empty DataFrame
+Columns: [n, tau_med, tau_max, T_over_tau_min, events_min, dist_min]
+Index: []
+
+event-like families with < 20 events in some instance:
+                       min  median
+cls family                        
+C   shot-noise           3    30.0
+F   pomeau-manneville    0     1.0
+I   excitable-fhn       11    16.0
+J   cox-smoothed         1     4.5
+    hawkes               2     7.0
+    poisson-smoothed     0     5.5
+M   heavy-noise         12    12.0
+N   circadian-hormone   15    19.5
+    rainfall-pulse       7    44.0
+    rr-ectopic          12    23.0

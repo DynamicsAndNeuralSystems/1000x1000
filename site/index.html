@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1000×1000</title>
+<meta name="description" content="The 1000×1000 collection: 1000 simulated time series, each 1000 samples long, spanning the dynamical processes scientists have models for.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="1000×1000">
+<meta property="og:title" content="The 1000×1000 collection">
+<meta property="og:description" content="1000 simulated time series, each 1000 samples long, spanning the dynamical processes scientists have models for: explore them, hear them, and test yourself in the quiz.">
+<meta property="og:url" content="https://dynamicsandneuralsystems.github.io/1000x1000/">
+<meta property="og:image" content="https://dynamicsandneuralsystems.github.io/1000x1000/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<script>document.documentElement.dataset.style = new URLSearchParams(location.search).get("style") || "museum";</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Atkinson+Hyperlegible:wght@400;700&family=Martian+Mono:wght@400;500;600&family=Inter:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.11/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#/" aria-label="1000×1000, home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-12 -12 532 124" height="30" width="128.7" class="logo" aria-hidden="true" focusable="false"><polyline points="4,20 20,2 20,100" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="71" cy="51" rx="22.5" ry="41.5" fill="rgb(255,202,196)"/><ellipse cx="125" cy="51" rx="22.5" ry="41.5" fill="rgb(246,213,167)"/><ellipse cx="179" cy="51" rx="22.5" ry="41.5" fill="rgb(184,233,198)"/><polyline points="188.3,7.8 189.3,8.5 190.3,9.2 191.3,10 192.2,10.9 193.1,11.8 194,12.8 194.9,13.8 195.7,14.9 196.5,16 197.3,17.2 198.1,18.5 198.8,19.8 199.5,21.1 200.2,22.5 200.8,24 201.4,25.4 202,27 202.6,28.5 203.1,30.1 203.5,31.7 203.9,33.4 204.3,35.1 204.7,36.8 205,38.5 205.3,40.3 205.5,42 205.7,43.8 205.8,45.6 205.9,47.4 206,49.2 206,51 206,52.8 205.9,54.6 205.8,56.4 205.7,58.2 205.5,60 205.3,61.7 205,63.5 204.7,65.2 204.3,66.9 203.9,68.6 203.5,70.3 203.1,71.9 202.6,73.5 202,75" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.3"/><polyline points="202,75 201.4,76.6 200.8,78 200.2,79.5 199.5,80.9 198.8,82.2 198.1,83.5 197.3,84.8 196.5,86 195.7,87.1 194.9,88.2 194,89.2 193.1,90.2 192.2,91.1 191.3,92 190.3,92.8 189.3,93.5 188.3,94.2 187.3,94.7 186.3,95.3 185.3,95.7 184.3,96.1 183.2,96.4 182.2,96.7 181.1,96.9 180.1,97 179,97 177.9,97 176.9,96.9 175.8,96.7 174.8,96.4 173.7,96.1 172.7,95.7 171.7,95.3 170.7,94.7 169.7,94.2 168.7,93.5 167.7,92.8 166.7,92 165.8,91.1 164.9,90.2 164,89.2 163.1,88.2 162.3,87.1 161.5,86 160.7,84.8 159.9,83.5" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.4"/><polyline points="159.9,83.5 159.2,82.2 158.5,80.9 157.8,79.5 157.2,78 156.6,76.6 156,75 155.4,73.5 154.9,71.9 154.5,70.3 154.1,68.6 153.7,66.9 153.3,65.2 153,63.5 152.7,61.7 152.5,60 152.3,58.2 152.2,56.4 152.1,54.6 152,52.8 152,51 152,49.2 151.9,47.4 151.8,45.6 151.7,43.8 151.5,42 151.3,40.3 151,38.5 150.7,36.8 150.3,35.1 149.9,33.4 149.5,31.7 149.1,30.1 148.6,28.5 148,27 147.4,25.4 146.8,24 146.2,22.5 145.5,21.1 144.8,19.8 144.1,18.5 143.3,17.2 142.5,16 141.7,14.9 140.9,13.8 140,12.8" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.4"/><polyline points="140,12.8 139.1,11.8 138.2,10.9 137.3,10 136.3,9.2 135.3,8.5 134.3,7.8 133.3,7.3 132.3,6.7 131.3,6.3 130.3,5.9 129.2,5.6 128.2,5.3 127.1,5.1 126.1,5 125,5 123.9,5 122.9,5.1 121.8,5.3 120.8,5.6 119.7,5.9 118.7,6.3 117.7,6.7 116.7,7.3 115.7,7.8 114.7,8.5 113.7,9.2 112.7,10 111.8,10.9 110.9,11.8 110,12.8 109.1,13.8 108.3,14.9 107.5,16 106.7,17.2 105.9,18.5 105.2,19.8 104.5,21.1 103.8,22.5 103.2,24 102.6,25.4 102,27 101.4,28.5 100.9,30.1 100.5,31.7 100.1,33.4 99.7,35.1" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.5"/><polyline points="99.7,35.1 99.3,36.8 99,38.5 98.7,40.3 98.5,42 98.3,43.8 98.2,45.6 98.1,47.4 98,49.2 98,51 98,52.8 97.9,54.6 97.8,56.4 97.7,58.2 97.5,60 97.3,61.7 97,63.5 96.7,65.2 96.3,66.9 95.9,68.6 95.5,70.3 95.1,71.9 94.6,73.5 94,75 93.4,76.6 92.8,78 92.2,79.5 91.5,80.9 90.8,82.2 90.1,83.5 89.3,84.8 88.5,86 87.7,87.1 86.9,88.2 86,89.2 85.1,90.2 84.2,91.1 83.3,92 82.3,92.8 81.3,93.5 80.3,94.2 79.3,94.7 78.3,95.3 77.3,95.7 76.3,96.1 75.2,96.4 74.2,96.7" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.6"/><polyline points="74.2,96.7 73.1,96.9 72.1,97 71,97 69.9,97 68.9,96.9 67.8,96.7 66.8,96.4 65.7,96.1 64.7,95.7 63.7,95.3 62.7,94.7 61.7,94.2 60.7,93.5 59.7,92.8 58.7,92 57.8,91.1 56.9,90.2 56,89.2 55.1,88.2 54.3,87.1 53.5,86 52.7,84.8 51.9,83.5 51.2,82.2 50.5,80.9 49.8,79.5 49.2,78 48.6,76.6 48,75 47.4,73.5 46.9,71.9 46.5,70.3 46.1,68.6 45.7,66.9 45.3,65.2 45,63.5 44.7,61.7 44.5,60 44.3,58.2 44.2,56.4 44.1,54.6 44,52.8 44,51 44,49.2 44.1,47.4" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.7"/><polyline points="44.1,47.4 44.2,45.6 44.3,43.8 44.5,42 44.7,40.3 45,38.5 45.3,36.8 45.7,35.1 46.1,33.4 46.5,31.7 46.9,30.1 47.4,28.5 48,27 48.6,25.4 49.2,24 49.8,22.5 50.5,21.1 51.2,19.8 51.9,18.5 52.7,17.2 53.5,16 54.3,14.9 55.1,13.8 56,12.8 56.9,11.8 57.8,10.9 58.7,10 59.7,9.2 60.7,8.5 61.7,7.8 62.7,7.3 63.7,6.7 64.7,6.3 65.7,5.9 66.8,5.6 67.8,5.3 68.9,5.1 69.9,5 71,5 72.1,5 73.1,5.1 74.2,5.3 75.2,5.6 76.3,5.9 77.3,6.3 78.3,6.7 79.3,7.3" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.8"/><polyline points="79.3,7.3 80.3,7.8 81.3,8.5 82.3,9.2 83.3,10 84.2,10.9 85.1,11.8 86,12.8 86.9,13.8 87.7,14.9 88.5,16 89.3,17.2 90.1,18.5 90.8,19.8 91.5,21.1 92.2,22.5 92.8,24 93.4,25.4 94,27 94.6,28.5 95.1,30.1 95.5,31.7 95.9,33.4 96.3,35.1 96.7,36.8 97,38.5 97.3,40.3 97.5,42 97.7,43.8 97.8,45.6 97.9,47.4 98,49.2 98,51 98,52.8 98.1,54.6 98.2,56.4 98.3,58.2 98.5,60 98.7,61.7 99,63.5 99.3,65.2 99.7,66.9 100.1,68.6 100.5,70.3 100.9,71.9 101.4,73.5" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.8"/><polyline points="101.4,73.5 102,75 102.6,76.6 103.2,78 103.8,79.5 104.5,80.9 105.2,82.2 105.9,83.5 106.7,84.8 107.5,86 108.3,87.1 109.1,88.2 110,89.2 110.9,90.2 111.8,91.1 112.7,92 113.7,92.8 114.7,93.5 115.7,94.2 116.7,94.7 117.7,95.3 118.7,95.7 119.7,96.1 120.8,96.4 121.8,96.7 122.9,96.9 123.9,97 125,97 126.1,97 127.1,96.9 128.2,96.7 129.2,96.4 130.3,96.1 131.3,95.7 132.3,95.3 133.3,94.7 134.3,94.2 135.3,93.5 136.3,92.8 137.3,92 138.2,91.1 139.1,90.2 140,89.2 140.9,88.2 141.7,87.1 142.5,86 143.3,84.8" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.9"/><polyline points="143.3,84.8 144.1,83.5 144.8,82.2 145.5,80.9 146.2,79.5 146.8,78 147.4,76.6 148,75 148.6,73.5 149.1,71.9 149.5,70.3 149.9,68.6 150.3,66.9 150.7,65.2 151,63.5 151.3,61.7 151.5,60 151.7,58.2 151.8,56.4 151.9,54.6 152,52.8 152,51 152,49.2 152.1,47.4 152.2,45.6 152.3,43.8 152.5,42 152.7,40.3 153,38.5 153.3,36.8 153.7,35.1 154.1,33.4 154.5,31.7 154.9,30.1 155.4,28.5 156,27 156.6,25.4 157.2,24 157.8,22.5 158.5,21.1 159.2,19.8 159.9,18.5 160.7,17.2 161.5,16 162.3,14.9 163.1,13.8" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="1"/><circle cx="187.3" cy="7.3" r="6.5" fill="currentColor"/><polyline points="238,42 270,74" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/><polyline points="238,74 270,42" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round"/><polyline points="306,20 322,2 322,100" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="373" cy="51" rx="22.5" ry="41.5" fill="rgb(163,233,241)"/><ellipse cx="427" cy="51" rx="22.5" ry="41.5" fill="rgb(189,221,255)"/><ellipse cx="481" cy="51" rx="22.5" ry="41.5" fill="rgb(231,207,255)"/><polyline points="490.3,7.8 491.3,8.5 492.3,9.2 493.3,10 494.2,10.9 495.1,11.8 496,12.8 496.9,13.8 497.7,14.9 498.5,16 499.3,17.2 500.1,18.5 500.8,19.8 501.5,21.1 502.2,22.5 502.8,24 503.4,25.4 504,27 504.6,28.5 505.1,30.1 505.5,31.7 505.9,33.4 506.3,35.1 506.7,36.8 507,38.5 507.3,40.3 507.5,42 507.7,43.8 507.8,45.6 507.9,47.4 508,49.2 508,51 508,52.8 507.9,54.6 507.8,56.4 507.7,58.2 507.5,60 507.3,61.7 507,63.5 506.7,65.2 506.3,66.9 505.9,68.6 505.5,70.3 505.1,71.9 504.6,73.5 504,75" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.3"/><polyline points="504,75 503.4,76.6 502.8,78 502.2,79.5 501.5,80.9 500.8,82.2 500.1,83.5 499.3,84.8 498.5,86 497.7,87.1 496.9,88.2 496,89.2 495.1,90.2 494.2,91.1 493.3,92 492.3,92.8 491.3,93.5 490.3,94.2 489.3,94.7 488.3,95.3 487.3,95.7 486.3,96.1 485.2,96.4 484.2,96.7 483.1,96.9 482.1,97 481,97 479.9,97 478.9,96.9 477.8,96.7 476.8,96.4 475.7,96.1 474.7,95.7 473.7,95.3 472.7,94.7 471.7,94.2 470.7,93.5 469.7,92.8 468.7,92 467.8,91.1 466.9,90.2 466,89.2 465.1,88.2 464.3,87.1 463.5,86 462.7,84.8 461.9,83.5" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.4"/><polyline points="461.9,83.5 461.2,82.2 460.5,80.9 459.8,79.5 459.2,78 458.6,76.6 458,75 457.4,73.5 456.9,71.9 456.5,70.3 456.1,68.6 455.7,66.9 455.3,65.2 455,63.5 454.7,61.7 454.5,60 454.3,58.2 454.2,56.4 454.1,54.6 454,52.8 454,51 454,49.2 453.9,47.4 453.8,45.6 453.7,43.8 453.5,42 453.3,40.3 453,38.5 452.7,36.8 452.3,35.1 451.9,33.4 451.5,31.7 451.1,30.1 450.6,28.5 450,27 449.4,25.4 448.8,24 448.2,22.5 447.5,21.1 446.8,19.8 446.1,18.5 445.3,17.2 444.5,16 443.7,14.9 442.9,13.8 442,12.8" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.4"/><polyline points="442,12.8 441.1,11.8 440.2,10.9 439.3,10 438.3,9.2 437.3,8.5 436.3,7.8 435.3,7.3 434.3,6.7 433.3,6.3 432.3,5.9 431.2,5.6 430.2,5.3 429.1,5.1 428.1,5 427,5 425.9,5 424.9,5.1 423.8,5.3 422.8,5.6 421.7,5.9 420.7,6.3 419.7,6.7 418.7,7.3 417.7,7.8 416.7,8.5 415.7,9.2 414.7,10 413.8,10.9 412.9,11.8 412,12.8 411.1,13.8 410.3,14.9 409.5,16 408.7,17.2 407.9,18.5 407.2,19.8 406.5,21.1 405.8,22.5 405.2,24 404.6,25.4 404,27 403.4,28.5 402.9,30.1 402.5,31.7 402.1,33.4 401.7,35.1" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.5"/><polyline points="401.7,35.1 401.3,36.8 401,38.5 400.7,40.3 400.5,42 400.3,43.8 400.2,45.6 400.1,47.4 400,49.2 400,51 400,52.8 399.9,54.6 399.8,56.4 399.7,58.2 399.5,60 399.3,61.7 399,63.5 398.7,65.2 398.3,66.9 397.9,68.6 397.5,70.3 397.1,71.9 396.6,73.5 396,75 395.4,76.6 394.8,78 394.2,79.5 393.5,80.9 392.8,82.2 392.1,83.5 391.3,84.8 390.5,86 389.7,87.1 388.9,88.2 388,89.2 387.1,90.2 386.2,91.1 385.3,92 384.3,92.8 383.3,93.5 382.3,94.2 381.3,94.7 380.3,95.3 379.3,95.7 378.3,96.1 377.2,96.4 376.2,96.7" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.6"/><polyline points="376.2,96.7 375.1,96.9 374.1,97 373,97 371.9,97 370.9,96.9 369.8,96.7 368.8,96.4 367.7,96.1 366.7,95.7 365.7,95.3 364.7,94.7 363.7,94.2 362.7,93.5 361.7,92.8 360.7,92 359.8,91.1 358.9,90.2 358,89.2 357.1,88.2 356.3,87.1 355.5,86 354.7,84.8 353.9,83.5 353.2,82.2 352.5,80.9 351.8,79.5 351.2,78 350.6,76.6 350,75 349.4,73.5 348.9,71.9 348.5,70.3 348.1,68.6 347.7,66.9 347.3,65.2 347,63.5 346.7,61.7 346.5,60 346.3,58.2 346.2,56.4 346.1,54.6 346,52.8 346,51 346,49.2 346.1,47.4" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.7"/><polyline points="346.1,47.4 346.2,45.6 346.3,43.8 346.5,42 346.7,40.3 347,38.5 347.3,36.8 347.7,35.1 348.1,33.4 348.5,31.7 348.9,30.1 349.4,28.5 350,27 350.6,25.4 351.2,24 351.8,22.5 352.5,21.1 353.2,19.8 353.9,18.5 354.7,17.2 355.5,16 356.3,14.9 357.1,13.8 358,12.8 358.9,11.8 359.8,10.9 360.7,10 361.7,9.2 362.7,8.5 363.7,7.8 364.7,7.3 365.7,6.7 366.7,6.3 367.7,5.9 368.8,5.6 369.8,5.3 370.9,5.1 371.9,5 373,5 374.1,5 375.1,5.1 376.2,5.3 377.2,5.6 378.3,5.9 379.3,6.3 380.3,6.7 381.3,7.3" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.8"/><polyline points="381.3,7.3 382.3,7.8 383.3,8.5 384.3,9.2 385.3,10 386.2,10.9 387.1,11.8 388,12.8 388.9,13.8 389.7,14.9 390.5,16 391.3,17.2 392.1,18.5 392.8,19.8 393.5,21.1 394.2,22.5 394.8,24 395.4,25.4 396,27 396.6,28.5 397.1,30.1 397.5,31.7 397.9,33.4 398.3,35.1 398.7,36.8 399,38.5 399.3,40.3 399.5,42 399.7,43.8 399.8,45.6 399.9,47.4 400,49.2 400,51 400,52.8 400.1,54.6 400.2,56.4 400.3,58.2 400.5,60 400.7,61.7 401,63.5 401.3,65.2 401.7,66.9 402.1,68.6 402.5,70.3 402.9,71.9 403.4,73.5" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.8"/><polyline points="403.4,73.5 404,75 404.6,76.6 405.2,78 405.8,79.5 406.5,80.9 407.2,82.2 407.9,83.5 408.7,84.8 409.5,86 410.3,87.1 411.1,88.2 412,89.2 412.9,90.2 413.8,91.1 414.7,92 415.7,92.8 416.7,93.5 417.7,94.2 418.7,94.7 419.7,95.3 420.7,95.7 421.7,96.1 422.8,96.4 423.8,96.7 424.9,96.9 425.9,97 427,97 428.1,97 429.1,96.9 430.2,96.7 431.2,96.4 432.3,96.1 433.3,95.7 434.3,95.3 435.3,94.7 436.3,94.2 437.3,93.5 438.3,92.8 439.3,92 440.2,91.1 441.1,90.2 442,89.2 442.9,88.2 443.7,87.1 444.5,86 445.3,84.8" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="0.9"/><polyline points="445.3,84.8 446.1,83.5 446.8,82.2 447.5,80.9 448.2,79.5 448.8,78 449.4,76.6 450,75 450.6,73.5 451.1,71.9 451.5,70.3 451.9,68.6 452.3,66.9 452.7,65.2 453,63.5 453.3,61.7 453.5,60 453.7,58.2 453.8,56.4 453.9,54.6 454,52.8 454,51 454,49.2 454.1,47.4 454.2,45.6 454.3,43.8 454.5,42 454.7,40.3 455,38.5 455.3,36.8 455.7,35.1 456.1,33.4 456.5,31.7 456.9,30.1 457.4,28.5 458,27 458.6,25.4 459.2,24 459.8,22.5 460.5,21.1 461.2,19.8 461.9,18.5 462.7,17.2 463.5,16 464.3,14.9 465.1,13.8" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="round" opacity="1"/><circle cx="489.3" cy="7.3" r="6.5" fill="currentColor"/></svg></a>
+  <nav>
+    <div class="dd">
+      <a href="#/explore" data-nav="explore" aria-haspopup="true">Explore <span class="caret" aria-hidden="true">▾</span></a>
+      <div class="dd-menu" id="dd-menu" role="menu" aria-label="Classes"></div>
+    </div>
+    <a href="#/map" data-nav="map">Map</a>
+    <a href="#/quiz" data-nav="quiz">Quiz</a>
+    <a href="#/about" data-nav="about">Data</a>
+    <a href="#/faq" data-nav="faq">FAQ</a>
+  </nav>
+  <div class="search">
+    <input id="q" type="search" placeholder="Search processes…  /" aria-label="Search the collection" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="sr">
+    <div class="sr" id="sr" role="listbox" hidden></div>
+  </div>
+</header>
+<nav class="cbar" id="cbar" aria-label="Classes" hidden></nav>
+<main id="view" aria-live="polite"></main>
+<footer class="site-foot">
+  <span>Developed by <a href="http://www.benfulcher.com/" target="_blank" rel="noopener">Ben Fulcher</a>, <a href="https://dynamicsandneuralsystems.github.io/" target="_blank" rel="noopener">Dynamics and Neural Systems Group</a>, School of Physics, The University of Sydney</span>
+  <span class="foot-links"><a href="#/faq">FAQ</a> · <a href="#" data-feedback="">Send feedback</a></span>
+  <span class="foot-ai">Built with Claude Code (Anthropic)</span>
+</footer>
+
+<dialog id="modal" aria-labelledby="m-title">
+  <div class="m-head">
+    <div>
+      <div class="m-kicker" id="m-kicker"></div>
+      <h2 id="m-title"></h2>
+    </div>
+    <div class="m-nav">
+      <button class="icon" id="m-prev" title="Previous series (←)" aria-label="Previous series">‹</button>
+      <button class="icon" id="m-next" title="Next series (→)" aria-label="Next series">›</button>
+      <button class="icon" id="m-close" title="Close (Esc)" aria-label="Close">×</button>
+    </div>
+  </div>
+  <div class="m-plot">
+    <canvas id="m-canvas"></canvas>
+    <canvas id="m-wormcv" aria-hidden="true"></canvas>
+    <div class="m-readout" id="m-readout"></div>
+  </div>
+  <div class="m-play">
+    <button class="play" data-mode="wave"><span class="tri"></span>Waveform</button>
+    <button class="play" data-mode="contour"><span class="tri"></span>Pitch contour</button>
+    <button class="ghost wormbtn" id="m-worm" aria-pressed="false" title="A worm crawls along the series, the view following it; press again for the whole series">Worm</button>
+    <span class="wormopts" id="m-wormopts" hidden><button class="qglow" id="m-glow" aria-pressed="false">Glow worm</button></span>
+    <span class="hint" id="m-play-hint"></span>
+    <span class="spacer"></span>
+    <button class="ghost" id="m-copy">Copy CSV</button>
+    <button class="ghost" id="m-csv">Download CSV</button>
+  </div>
+  <div class="m-top">
+    <section class="m-family" id="m-family"></section>
+    <section class="m-ps" id="m-ps">
+      <h3>Phase space and spectrum</h3>
+      <span class="seg sm" id="m-psk" role="group" aria-label="Phase-space view"><button data-k="phase">Phase portrait</button><button data-k="rp">Recurrence</button><button data-k="spec">Spectrum</button></span>
+      <div class="rp-wrap"><canvas class="rp" id="m-rp" role="img" aria-label="Phase-space view of the series"></canvas><canvas class="rp-pov" id="m-rpov" aria-hidden="true"></canvas></div>
+      <p class="rp-note" id="m-rp-note"></p>
+    </section>
+  </div>
+  <div class="m-body">
+    <section class="m-nbrs" id="m-nbrs"></section>
+    <section class="m-instance" id="m-instance"></section>
+  </div>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>

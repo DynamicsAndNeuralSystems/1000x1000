@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "s1000"
+version = "0.1.0"
+description = "The 1000×1000 collection: 1000 simulated time series × 1000 samples spanning the dynamical processes scientists model"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "numpy==1.26.4",
+    "scipy==1.13.1",
+    "pyyaml==6.0.2",
+    "dysts==0.96",
+    "pandas==2.3.3",
+    "pyarrow==25.0.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.3.3"]
+site = ["scikit-learn==1.5.2", "h5py==3.12.1", "umap-learn==0.5.7", "sympy==1.13.3", "pycatch22==0.5.0"]
+figures = ["matplotlib>=3.8"]
+
+[project.scripts]
+s1000 = "s1000.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+s1000 = ["data/*.json"]

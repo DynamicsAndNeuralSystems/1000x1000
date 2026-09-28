@@ -1,0 +1,332 @@
+<title>Synthetic1000 Review Board</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#f6f7f5; --panel:#ffffff; --ink:#16191c; --ink2:#4f5961; --muted:#8a939a; --rule:#dde1dc; --rule2:#eceee9;
+  --accent:#1e6e79; --accent-soft:#dcebec;
+  --keep:#2f7d4f; --keep-soft:#dcefe2; --fix:#a86400; --fix-soft:#f8e7c9; --drop:#b3261e; --drop-soft:#f7dcd9;
+  --t-slow:#cde2fb; --t-nonstationary:#fbd9c2; --t-onset:#f7c6c6; --t-periodic:#e1d9f7; --t-duplicate:#d3f0dc;
+  --t-spiky:#f8ecb8; --t-discrete:#e3e2dd; --t-banded:#c9ece8; --t-other:#f0e0f0; --t-new:#d3f0dc; --t-changed:#cde2fb;
+  --line:#16191c;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#111416; --panel:#181c1f; --ink:#e3e7e5; --ink2:#a9b2b8; --muted:#6f7a82; --rule:#2a3136; --rule2:#1f2528;
+    --accent:#62b8c1; --accent-soft:#1a3237;
+    --keep:#6cc28f; --keep-soft:#1c3326; --fix:#e0a54a; --fix-soft:#3a2c14; --drop:#ec7a70; --drop-soft:#3d1f1c;
+    --t-slow:#1d3450; --t-nonstationary:#45301f; --t-onset:#482424; --t-periodic:#2e2848; --t-duplicate:#1e3a29;
+    --t-spiky:#403818; --t-discrete:#2e2e2b; --t-banded:#173a36; --t-other:#3a2a3a; --t-new:#1c3a26; --t-changed:#1b3350;
+    --line:#dfe4e1;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111416; --panel:#181c1f; --ink:#e3e7e5; --ink2:#a9b2b8; --muted:#6f7a82; --rule:#2a3136; --rule2:#1f2528;
+  --accent:#62b8c1; --accent-soft:#1a3237;
+  --keep:#6cc28f; --keep-soft:#1c3326; --fix:#e0a54a; --fix-soft:#3a2c14; --drop:#ec7a70; --drop-soft:#3d1f1c;
+  --t-slow:#1d3450; --t-nonstationary:#45301f; --t-onset:#482424; --t-periodic:#2e2848; --t-duplicate:#1e3a29;
+  --t-spiky:#403818; --t-discrete:#2e2e2b; --t-banded:#173a36; --t-other:#3a2a3a; --t-new:#1c3a26; --t-changed:#1b3350;
+  --line:#dfe4e1;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:14px/1.45 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;margin:0}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+header{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--rule);padding:14px 22px 10px}
+.top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+h1{font-size:18px;font-weight:600;margin:0;letter-spacing:-.005em}
+.sub{color:var(--ink2);font-size:13px}
+.status{margin-left:auto;font-size:12.5px;color:var(--muted)}
+.status.err{color:var(--drop)}
+.progress{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--rule2);margin:10px 0 8px;gap:2px}
+.progress i{display:block;height:100%}
+.counts{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--ink2)}
+.counts b{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:600}
+.dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:0}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.bar .lab{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.chip{border:1px solid var(--rule);background:var(--panel);color:var(--ink2);border-radius:999px;padding:3px 10px;font:inherit;font-size:12.5px;cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--accent);color:var(--ink);background:var(--accent-soft)}
+.chip .n{color:var(--muted);font-variant-numeric:tabular-nums;margin-left:4px}
+.chip.cat{padding-left:8px}
+.chip.cat .sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.sep{width:1px;height:20px;background:var(--rule);margin:0 4px}
+.bulk{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.bulk button{font:inherit;font-size:12.5px;border-radius:6px;padding:4px 10px;cursor:pointer;border:1px solid var(--rule);background:var(--panel);color:var(--ink)}
+.bulk button.arm{border-color:var(--fix);background:var(--fix-soft)}
+.help{font-size:12px;color:var(--muted);margin-top:6px}
+.help kbd{font-family:"IBM Plex Mono",monospace;font-size:11px;border:1px solid var(--rule);border-bottom-width:2px;border-radius:4px;padding:0 4px;background:var(--panel);color:var(--ink2)}
+main{padding:6px 22px 80px}
+h2{font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent);margin:22px 0 6px}
+.row{display:grid;grid-template-columns:230px minmax(280px,1fr) 300px 186px;gap:12px;align-items:center;padding:6px 8px;border-radius:6px;border:1px solid transparent}
+.row + .row{border-top-color:var(--rule2)}
+.row.flag{background:var(--panel)}
+.row:focus{outline:2px solid var(--accent);outline-offset:1px}
+.row.dec-keep{box-shadow:inset 4px 0 0 var(--keep)}
+.row.dec-fix{box-shadow:inset 4px 0 0 var(--fix)}
+.row.dec-drop{box-shadow:inset 4px 0 0 var(--drop)}
+.row.dec-drop canvas{opacity:.45}
+.id{font-size:12px;color:var(--ink);word-break:break-all}
+.kind{font-size:12px;color:var(--muted)}
+canvas{width:100%;height:46px;display:block}
+.notes{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--ink2)}
+.note{border-radius:4px;padding:2px 6px}
+.note b{font-weight:600;font-size:11px;letter-spacing:.03em;text-transform:uppercase;margin-right:4px;color:var(--ink)}
+.dec{display:flex;flex-direction:column;gap:3px;align-items:stretch}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--rule);border-radius:7px;overflow:hidden;background:var(--panel)}
+.seg button{font:inherit;font-size:12.5px;font-weight:500;padding:6px 0;border:0;background:transparent;color:var(--ink2);cursor:pointer}
+.seg button + button{border-left:1px solid var(--rule)}
+.seg button:hover{background:var(--rule2)}
+.seg button.sug{text-decoration:underline dotted;text-underline-offset:3px}
+.seg button[aria-pressed="true"].k{background:var(--keep);color:var(--panel)}
+.seg button[aria-pressed="true"].f{background:var(--fix);color:var(--panel)}
+.seg button[aria-pressed="true"].d{background:var(--drop);color:var(--panel)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.sugtxt{font-size:11px;color:var(--muted);text-align:center}
+.empty{color:var(--muted);padding:40px 0;text-align:center}
+@media (max-width:1100px){.row{grid-template-columns:170px 1fr 186px}.notes{grid-column:1/-1;grid-row:2}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<header>
+  <div class="top">
+    <h1>stationary1000 review</h1>
+    <span class="sub" id="sub"></span>
+    <span class="status" id="status">Connecting…</span>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="counts" id="counts"></div>
+  <div class="bar">
+    <span class="lab">Show</span>
+    <button class="chip" data-view="flagged" aria-pressed="true">Flagged<span class="n" id="n-flagged"></span></button>
+    <button class="chip" data-view="all" aria-pressed="false">All series<span class="n" id="n-all"></span></button>
+    <button class="chip" id="undecided" aria-pressed="false">Undecided only</button>
+    <span class="sep"></span>
+    <span class="lab">Category</span>
+    <span id="cats" style="display:contents"></span>
+  </div>
+  <div class="bar">
+    <span class="lab">Class</span>
+    <span id="classes" style="display:contents"></span>
+    <span class="sep"></span>
+    <span class="lab">Shown, undecided</span>
+    <span class="bulk" id="bulk">
+      <button data-bulk="sug">Apply suggestions</button>
+      <button data-bulk="keep">Keep all</button>
+      <button data-bulk="fix">Fix all</button>
+      <button data-bulk="drop">Drop all</button>
+    </span>
+  </div>
+  <div class="help">Click a row, then <kbd>K</kbd> keep · <kbd>F</kbd> fix · <kbd>D</kbd> drop · <kbd>0</kbd> clear · <kbd>↑</kbd><kbd>↓</kbd> move. Click a chosen button again to clear it. Dotted underline = my suggestion. Choices save as you go.</div>
+</header>
+<main id="list"></main>
+
+<script>
+const DATA = __DATA__;
+const CATS = ["new","changed","slow","nonstationary","onset","periodic","duplicate","spiky","discrete","banded","other"];
+const FULL = !!DATA.fullPass;  // full pass: every series is to be decided, flags only annotate
+const CLASS_NAME = {A:"i.i.d. noise",B:"linear Gaussian",C:"linear non-Gaussian",D:"long memory / multifractal",E:"nonlinear stochastic",F:"deterministic maps",G:"chaotic flows",H:"periodic / oscillatory",I:"noise-driven continuous time",J:"events / point processes",L:"structured / coupled",M:"observation effects",N:"named models"};
+const rows = DATA.rows;
+const byId = new Map(rows.map(r => [r.id, r]));
+const flagged = rows.filter(r => r.n.length);
+let decisions = {};
+let view = FULL ? "all" : "flagged", undecidedOnly = false;
+const catOn = new Set(), clsOn = new Set();
+let saving = 0, store = null, readOnly = false;
+
+function short(id){ return id.replace("S1000_","").replace(/_(\d{3})$/,"·$1").replace("_","·"); }
+function decode(b64){ const s = atob(b64), u = new Uint8Array(s.length); for (let i=0;i<s.length;i++) u[i]=s.charCodeAt(i); return u; }
+
+// ---------- build rows once
+const list = document.getElementById("list");
+const els = new Map();
+let lastCls = null;
+for (const r of rows){
+  if (r.c !== lastCls){
+    const h = document.createElement("h2"); h.dataset.cls = r.c; h.textContent = `${r.c} · ${CLASS_NAME[r.c] || ""}`;
+    list.appendChild(h); lastCls = r.c;
+  }
+  const el = document.createElement("div");
+  el.className = "row" + (r.n.length ? " flag" : ""); el.tabIndex = 0; el.dataset.id = r.id;
+  const notes = r.n.map(([c,t]) => `<div class="note" style="background:var(--t-${c})"><b>${c}</b>${escapeHtml(t)}</div>`).join("");
+  el.innerHTML = `<div><div class="id mono">${short(r.id)}</div><div class="kind">${escapeHtml(r.k)}</div></div>
+    <canvas></canvas>
+    <div class="notes">${notes}</div>
+    <div class="dec"><div class="seg" role="group" aria-label="Decision for ${short(r.id)}">
+      <button class="k${r.s==="keep"?" sug":""}" data-d="keep" aria-pressed="false">Keep</button>
+      <button class="f${r.s==="fix"?" sug":""}" data-d="fix" aria-pressed="false">Fix</button>
+      <button class="d${r.s==="drop"?" sug":""}" data-d="drop" aria-pressed="false">Drop</button></div>
+      ${r.s ? `<div class="sugtxt">suggested: ${r.s}</div>` : ""}</div>`;
+  list.appendChild(el); els.set(r.id, el);
+}
+function escapeHtml(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+// ---------- lazy plot drawing
+const drawn = new WeakSet();
+function draw(el){
+  const cv = el.querySelector("canvas"), r = byId.get(el.dataset.id);
+  const w = cv.clientWidth, h = cv.clientHeight; if (!w) return;
+  const dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+  const ctx = cv.getContext("2d"); ctx.scale(dpr,dpr); ctx.clearRect(0,0,w,h);
+  const u = r._u || (r._u = decode(r.x)); const n = u.length;
+  ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue("--line").trim() || "#16191c";
+  ctx.lineWidth = 0.7; ctx.lineJoin = "round"; ctx.beginPath();
+  for (let i=0;i<n;i++){ const px = i/(n-1)*(w-2)+1, py = h-2-(u[i]/255)*(h-4); i ? ctx.lineTo(px,py) : ctx.moveTo(px,py); }
+  ctx.stroke(); drawn.add(el);
+}
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !drawn.has(e.target)) draw(e.target); }), {rootMargin:"400px"});
+els.forEach(el => io.observe(el));
+let rsz; window.addEventListener("resize", () => { clearTimeout(rsz); rsz = setTimeout(() => els.forEach(el => { if (drawn.has(el)) draw(el); }), 150); });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => els.forEach(el => { if (drawn.has(el)) draw(el); }));
+
+// ---------- filters
+const catBox = document.getElementById("cats"), clsBox = document.getElementById("classes");
+for (const c of CATS){
+  const n = flagged.filter(r => r.n.some(([k]) => k===c)).length; if (!n) continue;
+  const b = document.createElement("button"); b.className = "chip cat"; b.setAttribute("aria-pressed","false"); b.dataset.cat = c;
+  b.innerHTML = `<span class="sw" style="background:var(--t-${c})"></span>${c}<span class="n">${n}</span>`;
+  b.onclick = () => { catOn.has(c) ? catOn.delete(c) : catOn.add(c); b.setAttribute("aria-pressed", catOn.has(c)); applyFilter(); };
+  catBox.appendChild(b);
+}
+for (const c of Object.keys(CLASS_NAME)){
+  if (!rows.some(r => r.c===c)) continue;
+  const b = document.createElement("button"); b.className = "chip"; b.setAttribute("aria-pressed","false"); b.textContent = c;
+  b.title = CLASS_NAME[c];
+  b.onclick = () => { clsOn.has(c) ? clsOn.delete(c) : clsOn.add(c); b.setAttribute("aria-pressed", clsOn.has(c)); applyFilter(); };
+  clsBox.appendChild(b);
+}
+document.querySelectorAll("[data-view]").forEach(b => b.onclick = () => {
+  view = b.dataset.view; document.querySelectorAll("[data-view]").forEach(x => x.setAttribute("aria-pressed", x===b)); applyFilter();
+});
+const undBtn = document.getElementById("undecided");
+undBtn.onclick = () => { undecidedOnly = !undecidedOnly; undBtn.setAttribute("aria-pressed", undecidedOnly); applyFilter(); };
+document.getElementById("n-flagged").textContent = flagged.length;
+if (FULL){
+  const fb = document.querySelector('[data-view="flagged"]'); fb.firstChild.textContent = "New or changed";
+  fb.setAttribute("aria-pressed","false"); document.querySelector('[data-view="all"]').setAttribute("aria-pressed","true");
+}
+const target = FULL ? rows : flagged;
+document.getElementById("n-all").textContent = rows.length;
+document.getElementById("sub").textContent = FULL ? `${DATA.profile} ${DATA.tag || ""} · built ${DATA.version} · full pass over ${rows.length} series (${flagged.length} new or changed)` : `${DATA.profile} · built ${DATA.version} · ${flagged.length} flagged of ${rows.length}`;
+
+function shown(r){
+  if (view === "flagged" && !r.n.length) return false;
+  if (undecidedOnly && decisions[r.id]) return false;
+  if (catOn.size && !r.n.some(([k]) => catOn.has(k))) return false;
+  if (clsOn.size && !clsOn.has(r.c)) return false;
+  return true;
+}
+function applyFilter(){
+  const visCls = new Set();
+  for (const r of rows){ const on = shown(r); els.get(r.id).hidden = !on; if (on) visCls.add(r.c); }
+  document.querySelectorAll("h2[data-cls]").forEach(h => h.hidden = !visCls.has(h.dataset.cls));
+  let empty = document.getElementById("empty");
+  if (!visCls.size){ if (!empty){ empty = document.createElement("div"); empty.id="empty"; empty.className="empty"; empty.textContent="Nothing left under these filters."; list.appendChild(empty);} }
+  else if (empty) empty.remove();
+  els.forEach(el => { if (!el.hidden && drawn.has(el) && !el.querySelector("canvas").width) draw(el); });
+}
+
+// ---------- decisions: render
+function paint(id){
+  const el = els.get(id), d = decisions[id];
+  el.classList.remove("dec-keep","dec-fix","dec-drop"); if (d) el.classList.add("dec-"+d);
+  el.querySelectorAll(".seg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.d === d));
+}
+function paintCounts(){
+  const all = Object.values(decisions);
+  const k = all.filter(d=>d==="keep").length, f = all.filter(d=>d==="fix").length, dr = all.filter(d=>d==="drop").length;
+  const fd = target.filter(r => decisions[r.id]).length;
+  const tot = target.length || 1;
+  const fk = target.filter(r=>decisions[r.id]==="keep").length, ff = target.filter(r=>decisions[r.id]==="fix").length, fdr = target.filter(r=>decisions[r.id]==="drop").length;
+  document.getElementById("progress").innerHTML =
+    `<i style="width:${100*fk/tot}%;background:var(--keep)"></i><i style="width:${100*ff/tot}%;background:var(--fix)"></i><i style="width:${100*fdr/tot}%;background:var(--drop)"></i>`;
+  const extra = all.length - fd;
+  document.getElementById("counts").innerHTML =
+    `<span><b>${fd}</b> of ${target.length} ${FULL ? "" : "flagged "}decided</span>
+     <span><span class="dot" style="background:var(--keep)"></span>keep <b>${k}</b></span>
+     <span><span class="dot" style="background:var(--fix)"></span>fix <b>${f}</b></span>
+     <span><span class="dot" style="background:var(--drop)"></span>drop <b>${dr}</b></span>` +
+    (extra ? `<span>(${extra} of these on unflagged series)</span>` : "");
+}
+function paintAll(){ rows.forEach(r => paint(r.id)); paintCounts(); if (undecidedOnly) applyFilter(); }
+
+// ---------- decisions: save
+const LS = "s1000-review-" + (DATA.collection || "decisions");
+const chains = new Map();
+function setStatus(t, err){ const s = document.getElementById("status"); s.textContent = t; s.classList.toggle("err", !!err); }
+function persist(id, d){
+  if (!store){ try { localStorage.setItem(LS, JSON.stringify(decisions)); } catch(e){} return; }
+  saving++; setStatus("Saving…");
+  const prev = chains.get(id) || Promise.resolve();
+  const p = prev.then(() => d ? store.doc(id).set({d, t:new Date().toISOString()}) : store.doc(id).delete())
+    .then(() => { saving--; if (!saving) setStatus("All choices saved"); })
+    .catch(e => { saving--; setStatus(e && e.code === "invalid_argument" ? "You can view but not save choices here" : "A choice didn't save — try that one again", true); });
+  chains.set(id, p); return p;
+}
+function decide(id, d){
+  if (readOnly) return;
+  if (decisions[id] === d) d = null;
+  if (d) decisions[id] = d; else delete decisions[id];
+  paint(id); paintCounts(); persist(id, d);
+}
+list.addEventListener("click", e => {
+  const b = e.target.closest(".seg button"); const row = e.target.closest(".row");
+  if (row) row.focus({preventScroll:true});
+  if (b) decide(row.dataset.id, b.dataset.d);
+});
+document.addEventListener("keydown", e => {
+  const row = document.activeElement && document.activeElement.closest && document.activeElement.closest(".row");
+  if (!row || e.metaKey || e.ctrlKey || e.altKey) return;
+  const key = e.key.toLowerCase();
+  const map = {k:"keep", f:"fix", d:"drop"};
+  if (map[key]){ e.preventDefault(); decide(row.dataset.id, map[key]); moveFrom(row, 1); }
+  else if (key === "0" || key === "backspace"){ e.preventDefault(); if (decisions[row.dataset.id]) decide(row.dataset.id, decisions[row.dataset.id]); }
+  else if (key === "arrowdown" || key === "arrowup"){ e.preventDefault(); moveFrom(row, key === "arrowdown" ? 1 : -1); }
+});
+function moveFrom(row, dir){
+  let el = row;
+  do { el = dir > 0 ? el.nextElementSibling : el.previousElementSibling; } while (el && (!el.classList.contains("row") || el.hidden));
+  if (el){ el.focus({preventScroll:true}); el.scrollIntoView({block:"nearest"}); }
+}
+
+// ---------- bulk (two-step confirm)
+let armed = null, armTimer;
+document.getElementById("bulk").addEventListener("click", async e => {
+  const b = e.target.closest("button"); if (!b || readOnly) return;
+  const what = b.dataset.bulk;
+  const targets = rows.filter(r => !els.get(r.id).hidden && !decisions[r.id]).filter(r => what !== "sug" || r.s);
+  if (!targets.length){ setStatus("No undecided series shown"); return; }
+  if (armed !== b){
+    document.querySelectorAll("#bulk button").forEach(x => { x.classList.remove("arm"); x.textContent = x.dataset.label || x.textContent; });
+    b.dataset.label = b.dataset.label || b.textContent;
+    b.classList.add("arm"); b.textContent = `Confirm: ${targets.length} series`; armed = b;
+    clearTimeout(armTimer); armTimer = setTimeout(() => { b.classList.remove("arm"); b.textContent = b.dataset.label; armed = null; }, 4000);
+    return;
+  }
+  clearTimeout(armTimer); b.classList.remove("arm"); b.textContent = b.dataset.label; armed = null;
+  for (const r of targets){ decisions[r.id] = what === "sug" ? r.s : what; paint(r.id); }
+  paintCounts(); if (undecidedOnly) applyFilter();
+  let i = 0;
+  const worker = async () => { while (i < targets.length){ const r = targets[i++]; await persist(r.id, decisions[r.id]); } };
+  await Promise.all([worker(), worker(), worker(), worker()]);
+});
+
+// ---------- start
+applyFilter(); paintCounts();
+(async () => {
+  let db = null;
+  try { db = await window.claude?.use?.("db"); } catch(e){ db = null; }
+  if (!db){
+    try { decisions = JSON.parse(localStorage.getItem(LS) || "{}"); } catch(e){ decisions = {}; }
+    paintAll(); setStatus("Not connected — choices are kept in this browser only", true); return;
+  }
+  store = db.collection(DATA.collection || "decisions");
+  let first = true;
+  store.limit(1000).onSnapshot(snap => {
+    const next = {};
+    snap.docs.forEach(d => { if (d.exists){ const v = d.data()?.d; if (v === "keep" || v === "fix" || v === "drop") next[d.id] = v; } });
+    decisions = next; paintAll();
+    if (first){ first = false; setStatus(Object.keys(next).length ? `Loaded ${Object.keys(next).length} saved choices` : "Ready — choices save as you go"); }
+  }, e => { setStatus("Live updates stopped — reload to reconnect", true); });
+  try { const user = await window.claude.use("user"); const can = user && await user.can?.("data.write"); if (can === false){ readOnly = true; setStatus("View only: you can't save choices here"); document.querySelectorAll(".seg button,#bulk button").forEach(b => b.disabled = true); } } catch(e){}
+})();
+</script>

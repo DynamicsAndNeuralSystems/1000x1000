@@ -1,0 +1,20 @@
+quantiles of statav_mean: [0.071 0.253 0.324 0.447]
+quantiles of statav_std:  [0.054 0.172 0.234 0.359]
+quantiles of var_ratio:   [ 1.35  2.75  3.94 11.76]
+
+flagged 21 of 1000 (statav_mean > 0.5 or statav_std > 0.35 or var_ratio > 10)
+                       n  statav_mean  statav_std  var_ratio
+cls family                                                  
+C   shot-noise         1         0.22        0.35      14.86
+D   discrete-cascade   5         0.08        0.40      13.29
+    mrw                2         0.09        0.39       9.96
+E   kesten             1         0.32        0.36      10.02
+F   pomeau-manneville  1         0.42        0.28      10.67
+J   cox-smoothed       1         0.42        0.35      11.66
+    hawkes             1         0.40        0.43      24.68
+    renewal            2         0.10        0.62      28.40
+L   on-off             1         0.37        0.35      22.31
+N   circadian-hormone  2         0.32        0.40      10.69
+    etas               2         0.32        0.53    1238.52
+    predator-prey-ssa  1         0.03        0.44      12.45
+    rainfall-pulse     1         0.32        0.34      11.75
