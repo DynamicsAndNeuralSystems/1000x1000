@@ -826,7 +826,7 @@ async function viewMap(openId) {
   S.embed = S.embed || await getJSON("data/embed.json");
   const E = S.embed;
   const how = () => mapState.kind === "umap"
-    ? `Each point is a series, placed by UMAP on its ${esc(E.features || "catch22")} features${E.n_features ? ` (${E.n_features.toLocaleString()})` : ""}. UMAP keeps somewhat more of the large-scale arrangement than t-SNE, and slightly less of the fine neighbourhood structure.`
+    ? `Each point is a series, placed by UMAP on its ${esc(E.features || "catch22")} features${E.n_features ? ` (${E.n_features.toLocaleString()})` : ""}. UMAP keeps somewhat more of the large-scale arrangement than t-SNE, and slightly less of the fine neighborhood structure.`
     : mapState.kind === "tsne"
     ? `Each point is a series, placed by t-SNE on its ${esc(E.features || "catch22")} features${E.n_features ? ` (${E.n_features.toLocaleString()})` : ""}, so series with similar dynamics sit together; distances between clusters are not meaningful.`
     : `Each point is a series, placed by the first two principal components of its ${esc(E.features || "catch22")} features${E.n_features ? ` (${E.n_features.toLocaleString()})` : ""} (${Math.round(E.explained[0] * 100)}% and ${Math.round(E.explained[1] * 100)}% of variance).`;
@@ -1771,7 +1771,7 @@ function qtier(a, b) {
   const d = qdist(a, b), med = S.quiz.median_nn;
   const [k, label] = d == null ? ["far", "Far apart"] : d < med ? ["near", "Near match"] : d < 1.12 * med ? ["close", "Close match"] : ["loose", "Loose match"];
   const tip = d == null ? "Not among the answer's closest look-alikes in hctsa feature space"
-    : `${d} apart in hctsa feature space (a typical series' nearest neighbour sits ${med} away)`;
+    : `${d} apart in hctsa feature space (a typical series' nearest neighbor sits ${med} away)`;
   return `<span class="qtag ${k}" title="${tip}">${label}</span>`;
 }
 function quizFeedbackHTML(R, P) {
@@ -1802,7 +1802,7 @@ function quizSummaryHTML() {
     <div class="qsum-score"><b>${score}</b><span>/ ${QN}</span></div>
     <div class="qzoo">${Q.rounds.map((R, k) => { const cl = S.byId.get(R.id).cls, c = S.cls.get(cl);
       return `<button class="qz ${Q.picks[k].ok ? "y" : "n"} k-${cl}" type="button" data-call="${cl}" title="${esc(c.mascot)} (${esc(c.short)})${Q.picks[k].ok ? "" : ": missed"}">${mascot(cl, "lg")}</button>`; }).join("")}</div>
-    <p class="qzoo-cap">You caught ${score} of the ${QN} mascots${score < QN ? "; the grey ones got away" : ""}. Tap one to hear it.</p>
+    <p class="qzoo-cap">You caught ${score} of the ${QN} mascots${score < QN ? "; the gray ones got away" : ""}. Tap one to hear it.</p>
     <p>${QMODES[Q.mode][0]}, ${QDIFF[Q.diff].toLowerCase()}${score > prev ? " · a new best" : prev ? ` · your best is ${Math.max(prev, score)}` : ""}.</p>
     <div class="qsum-act">
       <button class="btn primary" id="q-share" type="button">Copy result</button>

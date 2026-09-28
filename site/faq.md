@@ -7,7 +7,7 @@ The first question starts open. After editing: commit, then run scripts/deploy_p
 
 ## What is the 1000×1000 collection?
 
-1000 simulated time series, each 1000 samples long, from 133 generating mechanisms in 13 classes: noise and linear processes, maps, chaotic flows, oscillators, stochastic differential equations, point processes, measurement effects, and models of hearts, brains, climate and ecosystems. It aims to provide a unified resource for understanding the types of dynamical patterns we have models for. As well as being educational, uses include being able to test our time-series methods on a wider range of data types, as well as being able to match patterns in real data to underlying mechanisms.
+1000 simulated time series, each 1000 samples long, from 133 generating mechanisms in 13 classes: noise and linear processes, maps, chaotic flows, oscillators, stochastic differential equations, point processes, measurement effects, and models of hearts, brains, climate and ecosystems. It aims to provide a unified resource for understanding the types of dynamical patterns we have models for. As well as being educational, uses include testing time-series methods on a wider range of data types and matching patterns in real data to underlying mechanisms.
 
 ## Why do the series IDs start with S1000?
 
@@ -35,11 +35,11 @@ The spectrum of white noise with the same variance. A spectrum flat along it mea
 
 ## How were the hctsa features computed, and how is 'similar dynamics' measured?
 
-With hctsa (commit b1759834, nominally v3.0) in MATLAB R2025a on a supercomputer (NCI Gadi): 7077 features per series, of which about 6100 are well-behaved across the collection. Similarity quantification is based on the full set of these features (each robust-sigmoid normalised and z-scored, with Euclidean distance). The map shows a t-SNE or UMAP dimension reduction of this normalized feature space.
+With hctsa (commit b1759834, a v3.0 development version) in MATLAB R2025a on a supercomputer (NCI Gadi): 7077 features per series, of which about 6100 are well-behaved across the collection. Similarity quantification is based on the full set of these features (each robust-sigmoid normalized and z-scored, with Euclidean distance). The map shows a t-SNE or UMAP dimension reduction of this normalized feature space.
 
 ## What do the quiz's 'near match' and 'close match' tags mean?
 
-How far a wrong option sits from the right answer in hctsa feature space. A near match is closer than a typical series' nearest neighbour (about 61); a close match is within about 68; a loose match is among its 16 closest series from other families; far apart is anything beyond.
+How far a wrong option sits from the right answer in hctsa feature space. A near match is closer than a typical series' nearest neighbor (about 61); a close match is within about 68; a loose match is among its 16 closest series from other families; far apart is anything beyond.
 
 ## How do I cite the collection?
 

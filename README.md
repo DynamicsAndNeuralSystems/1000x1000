@@ -13,7 +13,7 @@ generating process, the parameters drawn for it, property tags and, where known,
 - **Website:** https://dynamicsandneuralsystems.github.io/1000x1000/ (browse, listen, map, quiz)
 - **Data:** [doi:10.6084/m9.figshare.34013331](https://doi.org/10.6084/m9.figshare.34013331) (CC BY 4.0),
   including the full hctsa feature matrix
-- **This repository:** the generator code (`s1000`), the website, and documentation (MIT licence)
+- **This repository:** the generator code (`s1000`), the website, and documentation (MIT license)
 
 ## Reproducibility
 
@@ -33,7 +33,7 @@ most 0.5 and the max/min window variance at most 20. All series have finite vari
 
 Two reproducibility details are built in: cached dysts trajectories come from their own named child
 stream (so a cache hit and a cache miss consume a series' stream identically), and a few chaotic
-integrations use scalar arithmetic, since numpy's vectorised complex operations take alignment-dependent
+integrations use scalar arithmetic, since numpy's vectorized complex operations take alignment-dependent
 SIMD/FMA paths whose last-ulp differences a chaotic system amplifies. `verify --cold` deletes the sampled
 series' cached trajectories first, so the integration itself is exercised.
 
