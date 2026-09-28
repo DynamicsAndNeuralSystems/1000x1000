@@ -10,7 +10,7 @@ import pandas as pd
 from . import T
 from .registry import CLASSES, by_class, load_all
 
-# hctsa input file per profile: stage 1 is published as "1000 x 1000"; the frozen full profile keeps its name
+# hctsa input file per profile: stage 1 is published as "1000x1000"; the frozen full profile keeps its name
 INP_NAMES = {"full": "INP_Synthetic1000.mat", "stationary1000": "INP_1000x1000.mat"}
 
 

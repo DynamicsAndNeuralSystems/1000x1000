@@ -7,7 +7,7 @@ The first question starts open. After editing: commit, then run scripts/deploy_p
 
 ## What is the 1000×1000 collection?
 
-1000 simulated time series, each 1000 samples long, from 133 generating mechanisms in 13 classes: noise and linear processes, maps, chaotic flows, oscillators, stochastic differential equations, point processes, measurement effects, and models of hearts, brains, climate and ecosystems. It is built to span the kinds of dynamics scientists have models for, so methods can be tested across all of them.
+1000 simulated time series, each 1000 samples long, from 133 generating mechanisms in 13 classes: noise and linear processes, maps, chaotic flows, oscillators, stochastic differential equations, point processes, measurement effects, and models of hearts, brains, climate and ecosystems. It is built to span the kinds of dynamics that scientists have modeled, to provide a unified resource for understanding the interdisciplinary  models so methods can be tested across all of them.
 
 ## Are all the series stationary?
 

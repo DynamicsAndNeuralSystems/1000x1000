@@ -28,7 +28,7 @@ PROFILES = {
     "stationary1000": dict(A=30, B=85, C=52, D=62, E=122, F=81, G=181, H=32, I=104, J=48, K=0, L=43, M=40, N=120),
 }
 ACTIVE = ["full"]
-# Published names: stage 1 is released as "1000 x 1000"; the CLI accepts either spelling.
+# Published names: stage 1 is released as "1000x1000"; the CLI accepts either spelling.
 RELEASE_NAMES = {"stationary1000": "1000x1000"}
 PROFILE_ALIASES = {v: k for k, v in RELEASE_NAMES.items()}
 
