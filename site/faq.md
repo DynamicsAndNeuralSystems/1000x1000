@@ -41,6 +41,10 @@ With hctsa (commit b1759834, a v3.0 development version) in MATLAB R2025a on a s
 
 How far a wrong option sits from the right answer in hctsa feature space. A near match is closer than a typical series' nearest neighbor (about 61); a close match is within about 68; a loose match is among its 16 closest series from other families; far apart is anything beyond.
 
+## Does the site track me?
+
+No. The site counts anonymous visits with [GoatCounter](https://www.goatcounter.com): which pages and series are viewed, and roughly where visitors come from. It sets no cookies and stores no personal information. Your quiz scores stay in your own browser.
+
 ## How do I cite the collection?
 
 Please cite the dataset: Fulcher, B. D. (2026). The 1000×1000 collection: 1000 synthetic time series from 133 dynamical processes. figshare. Dataset. [https://doi.org/10.6084/m9.figshare.34013331](https://doi.org/10.6084/m9.figshare.34013331).

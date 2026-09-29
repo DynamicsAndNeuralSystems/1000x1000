@@ -59,6 +59,25 @@ const STYLE_FONTS = {
   const l = document.createElement("link"); l.rel = "stylesheet";
   l.href = `https://fonts.googleapis.com/css2?family=${STYLE_FONTS[st]}&display=swap`; document.head.appendChild(l); })();
 
+// ---------- visit counts: GoatCounter (anonymous, no cookies), on the live site only ----------
+// Each page of the site (#/quiz, #/class/FLOW, ...) and each series opened counts as a view, e.g.
+// /1000x1000/#/series/S1000_FLOW_dysts-flow_020. Visit /1000x1000/#toggle-goatcounter once in a browser to stop counting it.
+const GC = location.hostname === "dynamicsandneuralsystems.github.io", GC_SITE = "1000x1000";  // the GoatCounter site code
+const gcQueue = []; let gcLast = "";
+function track(hash = location.hash) {
+  if (!GC) return;
+  const path = location.pathname + (hash || "#/");
+  if (path === gcLast) return; gcLast = path;
+  if (window.goatcounter?.count) window.goatcounter.count({ path }); else gcQueue.push(path);
+}
+if (GC) {
+  window.goatcounter = { no_onload: true };
+  const s = document.createElement("script");
+  s.async = true; s.src = "https://gc.zgo.at/count.js"; s.dataset.goatcounter = `https://${GC_SITE}.goatcounter.com/count`;
+  s.onload = () => { while (gcQueue.length) window.goatcounter.count({ path: gcQueue.shift() }); };
+  document.head.appendChild(s);
+}
+
 async function boot() {
   [S.index, S.meta] = await Promise.all([getJSON("data/index.json"), getJSON("data/meta.json")]);
   classColours();
@@ -462,6 +481,7 @@ async function openSeries(id, push = true) {
   mwStop();
   const dlg = $("#modal");
   modalId = id; zoom = null;
+  track(`#/series/${id}`);
   // prev/next walk the currently visible panes if on a class page, else the whole class
   const vis = [...document.querySelectorAll(".pane")].filter(p => !p.hidden && !p.closest("[hidden]")).map(p => p.dataset.id);
   modalList = vis.includes(id) ? vis : S.meta.filter(m => m.cls === r.cls).map(m => m.id);
@@ -2041,6 +2061,7 @@ function wireSearch() {
 
 function route() {
   stopTicker(); setTimeout(discoSync);
+  track(location.hash.replace(/^(#\/(class\/[^/]+|map))\/.+/, "$1"));
   document.body.classList.remove("landing");
   // links from before 2026-09-28 name series by class letter (S1000_G_...): translate them to the class code (S1000_FLOW_...)
   const h = location.hash.replace(/^#\/?/, "").split("/").map(p => p.replace(/^S1000_([A-N])_/, (_, c) => `S1000_${S.cls.get(c)?.short || c}_`));
