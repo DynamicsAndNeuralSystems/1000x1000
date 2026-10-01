@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>1000×1000 mascots</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@600&display=swap">
+<style>
+body{margin:0;padding:28px;background:#f7f6f2;font:14px/1.45 Inter,system-ui,sans-serif;color:#16150f}
+h1{font-size:22px;margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.c{display:flex;gap:14px;align-items:center;border-radius:12px;padding:12px 14px;background:var(--bg);border:1px solid var(--soft)}
+.ic{width:64px;height:64px;flex:none;color:var(--ink)} .ic svg{width:100%;height:100%}
+.big .ic{width:96px;height:96px}
+b{font:600 12px "JetBrains Mono",monospace;color:var(--ink)} .n{font-weight:600} p{margin:2px 0 0;color:#52514e;font-size:12.5px}
+</style></head><body>
+<h1>1000×1000 class mascots</h1><div class="grid" id="g"></div>
+<script>
+function oklch(L,C,h){const a=C*Math.cos(h*Math.PI/180),b=C*Math.sin(h*Math.PI/180);
+const l=(L+.3963377774*a+.2158037573*b)**3,m=(L-.1055613458*a-.0638541728*b)**3,s=(L-.0894841775*a-1.291485548*b)**3;
+const f=x=>{x=Math.max(0,Math.min(1,x));return Math.round(255*(x<=.0031308?12.92*x:1.055*x**(1/2.4)-.055))};
+return `rgb(${f(4.0767416621*l-3.3077115913*m+.2309699292*s)},${f(-1.2684380046*l+2.6097574011*m-.3413193965*s)},${f(-.0041960863*l-.7034186147*m+1.707614701*s)})`}
+const M=[["A","IID","goldfish","Famously memoryless: every draw forgets the last."],
+["B","LG","jellyfish","Its bell is a Gaussian; it drifts and relaxes back."],
+["C","LNG","stingray","A linear glider with a long, heavy tail."],
+["D","LRD","elephant","An elephant never forgets: long memory."],
+["E","NLS","chameleon","Switches regime (and colour) when conditions change."],
+["F","MAP","frog","Moves in discrete hops, one iterate at a time."],
+["G","FLOW","butterfly","The Lorenz butterfly: continuous-time chaos."],
+["H","OSC","firefly","Each flashes like a pulse oscillator, and whole trees of them synchronise."],
+["I","SDE","bee","Buzzes about, jittery and noise-driven."],
+["J","EVT","woodpecker","Drums in bursts: clusters of discrete strikes."],
+["K","NST","caterpillar","Metamorphosis: the process itself changes (stage 2)."],
+["L","COMP","octopus","Many coupled arms working as one system."],
+["M","OBS","owl","The observer: what measurement does to a process."],
+["N","NAT","beaver","Nature's engineer: models of natural and engineered systems."]];
+const g=document.getElementById("g");
+M.forEach(async([k,code,animal,why],i)=>{const idx="ABCDEFGHIJKLMN".indexOf(k),h=(25+idx*360*5/14)%360,d=document.createElement("div");d.className="c";
+d.style.cssText=`--bg:${oklch(.965,.028,h)};--soft:${oklch(.89,.07,h)};--ink:${oklch(.47,.12,h)}`;
+d.innerHTML=`<div class="ic"></div><div><b>${code}</b> <span class="n">${animal}</span><p>${why}</p></div>`;g.appendChild(d);
+d.querySelector(".ic").innerHTML=await (await fetch(`${k}-${animal}.svg`)).text();});
+</script></body></html>
