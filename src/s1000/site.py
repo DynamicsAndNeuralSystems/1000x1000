@@ -141,6 +141,9 @@ def export_site(out: Path, site: Path, prof: str, hctsa: Path | None = None):
     load_all()
     reg = by_class(prof)
     cards = _load_cards(Path.cwd())
+    sp_ = Path.cwd() / "docs" / "systems.yaml"  # what each named system is, in families that collect many
+    import yaml
+    systems = (yaml.safe_load(sp_.read_text()) or {}) if sp_.exists() else {}
     dd = site / "data"
     (dd / "series").mkdir(parents=True, exist_ok=True)
 
@@ -188,7 +191,8 @@ def export_site(out: Path, site: Path, prof: str, hctsa: Path | None = None):
         k = int(np.argmax(F))
         peak = bool(F.sum() > 0 and F[max(1, k - 2):k + 3].sum() / F.sum() > 0.25)
         peak = peak or tags.get("periodic") in ("yes", "partly") or tags.get("quasiperiodic") in ("yes", "partly")
-        recs.append(dict(id=r.id, name=series_name(f"{r.cls}.{r.family}", all_params[r.id], all_params),
+        name = series_name(f"{r.cls}.{r.family}", all_params[r.id], all_params)
+        recs.append(dict(id=r.id, name=name, about=systems.get(f"{r.family}/{name}") or systems.get(name),
                          labels=series_labels(tags), eqs=eqs_for(r), cls=r.cls, family=r.family, index=int(r.index), seed_name=r.seed_name,
                          seed=str(r.seed), tags=tags, nums=nums, params=json.loads(r.params or "{}"),
                          period=_sig(P if math.isfinite(P) else 0.0, 3), peak=peak,

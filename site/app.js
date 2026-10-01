@@ -496,7 +496,7 @@ async function openSeries(id, push = true) {
   $("#m-title").textContent = r.name;
   $("#m-family").innerHTML = `
     <h3>The process</h3>
-    <p>${esc(card.description)}</p>
+    <p>${esc(r.about || card.description)}</p>
     ${!r.eqs && card.equations ? `<h3>Equations</h3><div class="eq">${card.equations.map(e => `<div data-tex="${esc(e)}"></div>`).join("")}</div>` : ""}
     ${r.eqs ? `<h3>Equations</h3><div class="eq">
         <div data-tex="${esc(`\\begin{aligned}${r.eqs.lines.join(" \\\\ ")}\\end{aligned}`)}"></div></div>
@@ -504,6 +504,7 @@ async function openSeries(id, push = true) {
       : (["dysts-flow", "dysts-flow-coarse", "dysts-flow-extra", "dysts-map"].includes(r.family)
         ? `<p class="nocard">This system's equations are written in vector form in <a href="https://github.com/williamgilpin/dysts">dysts</a> and are not shown explicitly here.</p>` : "")}
     ${whereFor(r, card).length ? `<ul class="where">${whereFor(r, card).map(w => `<li>${esc(w)}</li>`).join("")}</ul>` : ""}
+    ${r.about && card.description ? `<h3>The family</h3><p>${esc(card.description)}</p>` : ""}
     ${card.fixed ? `<h3>Fixed settings <span class="h3-sub">(all series in this family)</span></h3><ul class="where">${card.fixed.map(w => `<li>${esc(w)}</li>`).join("")}</ul>` : ""}
     ${card.simulation ? `<h3>Family simulation details</h3><p>${esc(card.simulation)}</p>` : ""}
     ${card.references ? `<h3>References</h3><ol class="refs">${card.references.map(x => `<li>${esc(x)}</li>`).join("")}</ol>` : ""}
@@ -1385,7 +1386,7 @@ const qparHTML = (r, max) => { const L = qparams(r, max); return L.length ? `<sp
 function qcardHTML(id, { k = null, state = "", solo = false, answered = false, tag = "" } = {}) {
   const r = S.byId.get(id), card = S.fam.get(`${r.cls}.${r.family}`).card || {}, tex = qcardTex(r);
   const inner = `<span class="qc-top">${k != null ? `<span class="qkey">${k + 1}</span>` : ""}${mascot(r.cls, "sm")}<b>${esc(r.name)}</b></span>
-    <span class="qc-desc">${esc(qfirst(card.description || ""))}</span>
+    <span class="qc-desc">${esc(r.about || qfirst(card.description || ""))}</span>
     ${tex ? `<span class="qc-eq" data-tex="${esc(tex)}"></span>` : ""}
     ${qparHTML(r, 6)}`;
   return `<div class="qcard k-${r.cls}${solo ? " solo" : ""}${state ? " " + state : ""}" data-id="${id}">
@@ -1406,10 +1407,11 @@ function quizInfo(id) {
   const eqs = r.eqs ? [`\\begin{aligned}${r.eqs.lines.join(" \\\\ ")}\\end{aligned}`] : (card.equations || []);
   d.innerHTML = `<div class="qi-head">${mascot(r.cls, "lg")}<div><div class="qi-kick">${esc(c.short)} · ${esc(c.name || c.title)}</div><h2 id="qi-title">${esc(r.name)}</h2></div>
       <button class="icon qi-close" type="button" aria-label="Close">×</button></div>
-    <p>${esc(card.description || "")}</p>
+    <p>${esc(r.about || card.description || "")}</p>
     ${eqs.length ? `<div class="eq">${eqs.map(e => `<div data-tex="${esc(e)}"></div>`).join("")}</div>` : ""}
     ${whereFor(r, card).length ? `<ul class="where">${whereFor(r, card).map(w => `<li>${esc(w)}</li>`).join("")}</ul>` : ""}
     ${qparams(r, 99).length ? `<h3>This series' parameters</h3>${qparHTML(r, 99)}` : ""}
+    ${r.about && card.description ? `<h3>The family</h3><p>${esc(card.description)}</p>` : ""}
     ${card.fixed ? `<h3>Fixed settings <span class="h3-sub">(all series in this family)</span></h3><ul class="where">${card.fixed.map(w => `<li>${esc(w)}</li>`).join("")}</ul>` : ""}`;  // this series' values, not the family's sampling ranges
   if (window.katex) d.querySelectorAll("[data-itex]").forEach(el => katex.render(el.dataset.itex, el, { displayMode: false, throwOnError: false }));
   if (window.katex) d.querySelectorAll("[data-tex]").forEach(el => katex.render(el.dataset.tex, el, { displayMode: true, throwOnError: false }));
@@ -2006,7 +2008,7 @@ function buildSearch() {
     const r = rs[0], sys = Object.values(r.params).filter(v => typeof v === "string").join(" ");
     const fam = S.fam.get(`${r.cls}.${r.family}`);
     if (rs.length > 1 && fam && fam.label === r.name && rs.length === S.meta.filter(m => m.cls === r.cls && m.family === r.family).length) continue;  // same as its process
-    const text = norm([r.name, ALIASES[r.name] || "", sys, (r.labels || []).join(" "), r.family, rs.map(x => x.id).join(" ")].join(" "));
+    const text = norm([r.name, ALIASES[r.name] || "", sys, (r.labels || []).join(" "), r.family, r.about || "", rs.map(x => x.id).join(" ")].join(" "));
     E.push(rs.length === 1
       ? { type: "Series", code: r.cls, label: r.name, sub: `${sc(r.cls)} · ${(r.labels || []).join(", ")}`, id: r.id, text,
           go: () => { const base = location.hash.startsWith("#/map") ? "" : `#/class/${sc(r.cls)}`; if (base && !location.hash.startsWith(base)) location.hash = `${base}/${r.id}`; else openSeries(r.id); } }

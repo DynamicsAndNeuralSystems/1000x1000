@@ -25,6 +25,22 @@ def _shim(np, sp):
     return mod
 
 
+# dysts names some variables and parameters with several letters (lam, px, pth, ...), which LaTeX would
+# typeset as a product of single-letter symbols: give them their usual notation instead
+TEX_NAMES = {"eps": r"\varepsilon", "lam": r"\lambda", "lamb": r"\lambda", "th": r"\theta",
+             "px": "p_x", "py": "p_y", "pr": "p_r", "pth": r"p_\theta", "tx": r"\tau_x", "tz": r"\tau_z",
+             "vs": "v_s", "vsw": r"v_{\mathrm{sw}}", "zs": "z_s", "curr": "I"}
+
+
+def _sym(sp, name: str):
+    """A SymPy symbol for a dysts variable or parameter, printed in conventional notation."""
+    import re
+    tex = TEX_NAMES.get(name)
+    if tex is None and re.fullmatch(r"[A-Za-z]{2,}", sp.latex(sp.Symbol(name))):
+        tex = r"\mathrm{%s}" % name  # any other multi-letter name reads as one symbol, upright
+    return sp.Symbol(tex or name)
+
+
 def system_equations(name: str, kind: str = "flow"):
     """{'lhs': [...], 'rhs': [...], 'params': {name: value}} as LaTeX strings, or None."""
     import numpy as np
@@ -51,8 +67,8 @@ def system_equations(name: str, kind: str = "flow"):
     state = [a for a in args if a not in pnames and a != "t"]
     if not state or len(state) > 12:
         return None
-    S = {a: sp.Symbol(a) for a in state}
-    P = {p: sp.Symbol(p) for p in pnames}
+    S = {a: _sym(sp, a) for a in state}
+    P = {p: _sym(sp, p) for p in pnames}
     call = [S[a] if a in S else (sp.Symbol("t") if a == "t" else P[a]) for a in args]
     saved = module.np
     module.np = _shim(np, sp)

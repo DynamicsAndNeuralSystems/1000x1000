@@ -134,7 +134,7 @@ DYSTS = {
     "BelousovZhabotinsky": "Belousov–Zhabotinsky reaction", "BurkeShaw": "Burke–Shaw system", "ChenLee": "Chen–Lee system",
     "DequanLi": "Dequan Li system", "ForcedFitzHughNagumo": "Forced FitzHugh–Nagumo", "ForcedVanDerPol": "Forced van der Pol",
     "GenesioTesi": "Genesio–Tesi system", "GuckenheimerHolmes": "Guckenheimer–Holmes system", "HastingsPowell": "Hastings–Powell food chain",
-    "HenonHeiles": "Hénon–Heiles system", "HindmarshRose": "Hindmarsh–Rose neuron", "ItikBanksTumor": "Itik–Banks tumour model",
+    "HenonHeiles": "Hénon–Heiles system", "HindmarshRose": "Hindmarsh–Rose neuron", "ItikBanksTumor": "Itik–Banks tumor model",
     "KawczynskiStrizhak": "Kawczynski–Strizhak reaction", "LiuChen": "Liu–Chen system", "LorenzStenflo": "Lorenz–Stenflo system",
     "Lorenz84": "Lorenz-84 system", "Lorenz96": "Lorenz-96 system", "LorenzBounded": "Bounded Lorenz system",
     "LorenzCoupled": "Coupled Lorenz system", "LuChen": "Lü–Chen system", "LuChenCheng": "Lü–Chen–Cheng system",
